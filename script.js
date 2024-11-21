@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Verificar si ya hay un evento guardado en el LocalStorage
-    const savedEventTitle = localStorage.getItem('eventTitle');
-    const savedEventDate = localStorage.getItem('eventDate');
+    // Leer parámetros de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const savedEventTitle = urlParams.get('eventTitle');
+    const savedEventDate = urlParams.get('eventDate');
 
     if (savedEventTitle && savedEventDate) {
-        // Si hay datos guardados, iniciar la cuenta regresiva con esos datos
+        // Si hay datos en los parámetros de la URL, iniciar la cuenta regresiva
         document.getElementById('eventTitleModal').textContent = savedEventTitle;
         const eventDate = new Date(savedEventDate);
         document.getElementById('remainingText').textContent = 'FALTAN';
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('countdownModal').style.display = 'flex';  // Mostrar el modal
         document.getElementById('adminContainer').style.display = 'none'; // Ocultar la interfaz de administración
     } else {
-        // Si no hay datos guardados, mostrar la interfaz de administración
+        // Si no hay datos en los parámetros de la URL, mostrar la interfaz de administración
         document.getElementById('adminContainer').style.display = 'block';
         document.getElementById('countdownModal').style.display = 'none'; // Ocultar el modal
     }
@@ -30,9 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Convertir la fecha seleccionada en un objeto Date
         const eventDate = new Date(eventDateTime);
 
-        // Guardar los datos en el LocalStorage
-        localStorage.setItem('eventTitle', eventTitle);
-        localStorage.setItem('eventDate', eventDate);
+        // Modificar la URL para incluir el título y la fecha del evento
+        const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?eventTitle=${encodeURIComponent(eventTitle)}&eventDate=${eventDate.toISOString()}`;
+        window.history.pushState({}, '', newUrl); // Cambiar la URL sin recargar la página
 
         // Mostrar el modal con la cuenta regresiva
         document.getElementById('eventTitleModal').textContent = eventTitle;
