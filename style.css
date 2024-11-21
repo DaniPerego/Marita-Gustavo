@@ -21,6 +21,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+    background-image:url(img/marita\ y\ gustavo.PNG);
     background-color: rgba(116, 25, 96, 0.95); /* Fondo morado oscuro con transparencia */
     justify-content: center;
     align-items: center;
@@ -28,7 +29,7 @@ body {
 }
 
 .modal-content {
-    background-color: #741960;
+    background-color: #74196059;
     color: #fff;
     padding: 20px;
     border-radius: 10px;
